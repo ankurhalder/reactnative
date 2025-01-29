@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, FlatList, Button } from "react-native";
+import { StyleSheet, View, FlatList, Button, StatusBar } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 
@@ -32,34 +32,37 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <Button
-        title="Add New Goal"
-        color="#5e0acc"
-        onPress={startAddGoalHandler}
-      ></Button>
-      <GoalInput
-        onAddGoal={addGoalHandler}
-        modalIsVisible={modalIsVisible}
-        onCancel={endAddGoalHandler}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          alwaysBounceVertical={false}
-          data={courseGoals}
-          keyExtractor={(item) => item.id}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                onDeleteGoal={deleteGoalHandler}
-                id={itemData.item.id}
-                text={itemData.item.text}
-              />
-            );
-          }}
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add New Goal"
+          color="#5e0acc"
+          onPress={startAddGoalHandler}
+        ></Button>
+        <GoalInput
+          onAddGoal={addGoalHandler}
+          modalIsVisible={modalIsVisible}
+          onCancel={endAddGoalHandler}
         />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            alwaysBounceVertical={false}
+            data={courseGoals}
+            keyExtractor={(item) => item.id}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  onDeleteGoal={deleteGoalHandler}
+                  id={itemData.item.id}
+                  text={itemData.item.text}
+                />
+              );
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
